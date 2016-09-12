@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ScrapeView">
+        <attr name="EraseSize" format="dimension"/>
+        <attr name="MaskLayer" format="reference" />
+        <attr name="MaxPercent" format="integer" />
+        <attr name="WaterMask" format="reference" />
+    </declare-styleable>
+
+    <color name="default_mask">#cccccc</color>
+</resources>
