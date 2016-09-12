@@ -258,6 +258,7 @@ public class ScrapeView extends View {
             Rect bounds = new Rect(rect);
             mWatermark.setBounds(bounds);
             mWatermark.draw(mCanvas);
+            invalidate();
         }
     }
 
