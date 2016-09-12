@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         tvPercent = (TextView) findViewById(R.id.tvPercentSize);
         sbMaxPercent = (SeekBar) findViewById(R.id.sbPercent);
 
+        tvPercent.setText("MaxPercent：40");
+        tvSize.setText("画笔大小：60");
         sb.setProgress(60);
         sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
