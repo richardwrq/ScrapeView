@@ -30,9 +30,47 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:MaskLayer="@mipmap/test"
-            app:WaterMask="@mipmap/ic_launcher"
             android:padding="5dp"/>
     </FrameLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <SeekBar
+            android:id="@+id/sb"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tvEraseSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:text="画笔大小:"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <SeekBar
+            android:id="@+id/sbPercent"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tvPercentSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:text="MaxPercent:"/>
+    </LinearLayout>
 
     <Button
         android:layout_width="match_parent"
@@ -45,4 +83,10 @@
         android:layout_height="wrap_content"
         android:onClick="reset"
         android:text="reset"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="waterMask"
+        android:text="添加水印"/>
 </LinearLayout>

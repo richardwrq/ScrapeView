@@ -37,7 +37,7 @@ public class ScrapeView extends View {
     private static final String TAG = "ScrapeView";
 
     //擦除画笔的大小
-    private int eraseSize = DEFAULT_ERASE_SIZE;
+    private float eraseSize = DEFAULT_ERASE_SIZE;
     //擦除面积百分比，超过这个百分比自动将剩余部分擦除
     private int maxPercent = DEFAULT_MAX_PERCENT;
     //遮罩层
@@ -69,7 +69,7 @@ public class ScrapeView extends View {
     private ComputeScrapedAreaRunnable computeRunnable;
 
     private static final int DEFAULT_ERASE_SIZE = 60;
-    private static final int DEFAULT_MAX_PERCENT = 30;
+    private static final int DEFAULT_MAX_PERCENT = 40;
 
     public ScrapeView(Context context) {
         this(context, null);
@@ -203,6 +203,7 @@ public class ScrapeView extends View {
      * @param eraserSize 橡皮檫尺寸大小
      */
     public void setEraseSize(float eraserSize) {
+        this.eraseSize = eraserSize;
         mErasePaint.setStrokeWidth(eraserSize);
     }
 
@@ -244,8 +245,25 @@ public class ScrapeView extends View {
         if (resId == -1) {
             mWatermark = null;
         } else {
-            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), resId);
-            mWatermark = new BitmapDrawable(bitmap);
+            Drawable drawable = getResources().getDrawable(resId);
+            if (drawable == null) {
+                return;
+            }
+            if (mWatermark != null) {
+                mWatermark.getBitmap().recycle();
+            }
+            mWatermark = (BitmapDrawable) drawable;
+            mWatermark.setTileModeXY(Shader.TileMode.REPEAT, Shader.TileMode.REPEAT);
+            Rect rect = new Rect(0, 0, maskWidth, maskHeight);
+            Rect bounds = new Rect(rect);
+            mWatermark.setBounds(bounds);
+            mWatermark.draw(mCanvas);
+        }
+    }
+
+    public void setMaxPercent(int maxPercent) {
+        if (maxPercent >= 0 || maxPercent <= 100) {
+            this.maxPercent = maxPercent;
         }
     }
 
@@ -266,7 +284,7 @@ public class ScrapeView extends View {
         mCanvas = new Canvas(mMaskBitmap);
         mCanvas.drawRect(new Rect(0, 0, maskWidth, maskHeight), mBitmapPaint);
         invalidate();
-//        setVisibility(GONE);
+        setVisibility(GONE);
     }
 
     public void setEraseCallBack(EraseCallBack eraseCallBack) {
